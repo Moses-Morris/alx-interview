@@ -4,7 +4,7 @@ const url = `https://swapi-api.alx-tools.com/api/films/${movieId}/`;
 
 const request = require('request');
 
-function retrieve(urlChar) {
+function retrieve (urlChar) {
   return new Promise((resolve, reject) => {
     request(urlChar, (err, response, body) => {
       if (err) {
@@ -16,7 +16,7 @@ function retrieve(urlChar) {
   });
 }
 
-async function printCharactersFromMovie(movieUrl) {
+async function printCharactersFromMovie (movieUrl) {
   try {
     const movieData = await retrieve(movieUrl);
     const characters = JSON.parse(movieData).characters;
@@ -27,7 +27,7 @@ async function printCharactersFromMovie(movieUrl) {
       console.log(characterName);
     }
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
   }
 }
 
@@ -39,4 +39,3 @@ request(url, (err, response, body) => {
     printCharactersFromMovie(movieData.url);
   }
 });
-
