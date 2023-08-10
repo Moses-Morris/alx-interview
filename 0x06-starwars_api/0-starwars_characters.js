@@ -1,32 +1,42 @@
 #!/usr/bin/node
-const id = process.argv[2];
-const url = 'https://swapi-api.hbtn.io/api/films/' + id;
+const movieId = process.argv[2];
+const url = `https://swapi-api.alx-tools.com/api/films/${movieId}/`;
+
 const request = require('request');
 
-function retrive (urlChar) {
-  return new Promise(function (resolve, reject) {
-    request(urlChar, function getChar (err2, response2, body2) {
-      if (err2) {
-        reject(err2);
+function retrieve(urlChar) {
+  return new Promise((resolve, reject) => {
+    request(urlChar, (err, response, body) => {
+      if (err) {
+        reject(err);
       } else {
-        resolve(JSON.parse(body2).name);
+        resolve(body);
       }
     });
   });
 }
 
-async function getlist (urlist) {
-  for (const urlChar of urlist) {
-    const character = await retrive(urlChar);
-    console.log(character);
+async function printCharactersFromMovie(movieUrl) {
+  try {
+    const movieData = await retrieve(movieUrl);
+    const characters = JSON.parse(movieData).characters;
+
+    for (const characterUrl of characters) {
+      const characterData = await retrieve(characterUrl);
+      const characterName = JSON.parse(characterData).name;
+      console.log(characterName);
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }
 
-request(url, function getList (err, response, body) {
+request(url, (err, response, body) => {
   if (err) {
     throw err;
   } else {
-    const urlist = JSON.parse(body).characters;
-    getlist(urlist);
+    const movieData = JSON.parse(body);
+    printCharactersFromMovie(movieData.url);
   }
 });
+
