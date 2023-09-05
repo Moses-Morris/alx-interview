@@ -28,9 +28,9 @@ def isWinner(x, nums):
     Maria = 0
     Ben = 0
     for game in range(x):
-        # print("game# ", game+1)
+        ''' print("game# ", game+1)'''
         nums2 = list(range(1, nums[game] + 1))
-        # print("nums: ", nums2)
+        ''' print("nums: ", nums2)'''
         turn = 0
         while True:
             """
@@ -42,20 +42,20 @@ def isWinner(x, nums):
             """
             change = False
             for i, n in enumerate(nums2):
-                # print("n: ", n, "i: ", i)
+                ''' print("n: ", n, "i: ", i)'''
                 if n > 1 and isprime(n):
                     delete_numbers(n, nums2)
                     change = True
                     turn += 1
                     break
-            # print("movement: ", nums2)
+            ''' print("movement: ", nums2)'''
             if change is False:
                 break
         if turn % 2 != 0:
             Maria += 1
         else:
             Ben += 1
-        # print("Maria: {}, Ben: {}".format(Maria, Ben))
+        ''''# print("Maria: {}, Ben: {}".format(Maria, Ben))'''
     if Maria == Ben:
         return None
     if Maria > Ben:
